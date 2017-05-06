@@ -5,8 +5,10 @@ function connect(callback) {
     mongoose.connect(uristring, callback)
 }
 
-function insert(callback) {
-  
+function insert(data, callback) {
+  var record = new User(data)
+  var promise = record.save()
+  promise.then(callback)
 }
 
 var userSchema = new mongoose.Schema({
