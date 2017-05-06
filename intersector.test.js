@@ -46,9 +46,9 @@ test('should leave extras from either side out', () => {
   ]
 
   var b = [{
-      q: "foo",
-      a: "baz"
-    }]
+    q: "foo",
+    a: "baz"
+  }]
   expect(subject.intersect(a, b)).toEqual(b)
   expect(subject.intersect(b, a)).toEqual(b)
 })
@@ -71,9 +71,10 @@ test("should accept arrays with extra on each side", () => {
     {
       q: "maybe",
       a: "not"
-    }]
-    expect(subject.intersect(a, b)).toEqual([{
-        q: "foo",
-        a: "baz"
-      }])
+    }
+  ]
+  expect(subject.intersect(a, b)).toEqual([{
+    q: "foo",
+    a: "baz"
+  }])
 })
