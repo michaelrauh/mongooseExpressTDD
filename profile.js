@@ -11,6 +11,15 @@ function insert(data, callback) {
   promise.then(callback)
 }
 
+function drop(callback) {
+  User.remove({}, function(err) {
+    if (err){ console.log(err) }
+    else {
+        callback()
+    }
+});
+}
+
 var userSchema = new mongoose.Schema({
   userid: String,
   answer: String
@@ -18,4 +27,4 @@ var userSchema = new mongoose.Schema({
 
 var User = mongoose.model('User', userSchema);
 
-module.exports = {connect, insert, User}
+module.exports = {connect, insert, User, drop}

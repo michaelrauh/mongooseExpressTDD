@@ -25,3 +25,9 @@ test('can insert a record into the database', done => {
     })
   })
 });
+
+test('can drop the users table', done => {
+  subject.connect(function(){
+    subject.drop(done)
+  })
+})
