@@ -22,14 +22,14 @@ function drop(callback) {
 }
 
 function find(identifier, callback){
-  var data = {
-    id: "one",
-    value: [{
-      q: "two",
-      a: "three"
-    }]
-  }
-  callback(data)
+  var query = User.findOne({
+    id: identifier
+  })
+
+  var promise = query.exec();
+  promise.then(function(doc) {
+    callback(doc)
+  })
 }
 
 var userSchema = new mongoose.Schema({
