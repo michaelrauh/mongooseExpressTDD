@@ -23,8 +23,6 @@ function init() {
 
   var User = mongoose.model('Users', userSchema);
 
-  mongoose.connection.close()
-
   return User;
 }
 module.exports = init;
