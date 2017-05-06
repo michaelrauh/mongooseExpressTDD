@@ -1,14 +1,14 @@
 const init = require('./user');
 
-test('initializes user model', () => {
+test('initializes user model with correct schema', () => {
 
-var mongoose = require ("mongoose");
+  var mongoose = require("mongoose");
   var userSchema = new mongoose.Schema({
-    name: {
-      first: String,
-      last: { type: String, trim: true }
-    },
-    age: { type: Number, min: 0}
+    id: String,
+    data: [{
+      q: String,
+      a: String
+    }]
   });
 
   expect(init().schema.obj).toEqual(userSchema.obj);
