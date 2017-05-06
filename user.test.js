@@ -26,7 +26,9 @@ test('can insert a user into the database', done => {
             console.log("here")
             done()
           }
-          User.findOne({id: "abc123"}, onFound(done))
+          User.findOne({id: "abc123"}, function(err, doc){
+            console.log(err)
+          })
         }
 
         new User(user).save(onSave(done))
