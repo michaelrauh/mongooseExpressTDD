@@ -21,6 +21,17 @@ function drop(callback) {
   });
 }
 
+function find(identifier, callback){
+  var data = {
+    id: "one",
+    value: [{
+      q: "two",
+      a: "three"
+    }]
+  }
+  callback(data)
+}
+
 var userSchema = new mongoose.Schema({
   id: String,
   value: {
@@ -35,5 +46,6 @@ module.exports = {
   connect,
   insert,
   User,
-  drop
+  drop,
+  find
 }

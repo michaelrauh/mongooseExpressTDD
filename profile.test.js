@@ -38,6 +38,26 @@ test('should insert a record into the database', done => {
   })
 });
 
+test('should be able to retrieve a user by id', done => {
+  var data = {
+    id: "one",
+    value: [{
+      q: "two",
+      a: "three"
+    }]
+  }
+
+  subject.connect(function(){
+    subject.insert(data, function(){
+      subject.find("one", function(res){
+        expect(res.value[0].q).toEqual("two")
+        expect(res.value[0].a).toEqual("three")
+        done()
+      })
+    })
+  })
+})
+
 test('should drop the users table', done => {
   subject.connect(function() {
     subject.drop(done)
