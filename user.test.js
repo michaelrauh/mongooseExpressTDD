@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-// const s = require('./user');
+const s = require('./user');
 var subject;
 
 afterEach(() => {
@@ -7,10 +7,6 @@ afterEach(() => {
 });
 
 test('can insert a user into the database', done => {
-  var uristring =
-    process.env.MONGODB_URI ||
-    'mongodb://localhost/User';
-
   var userSchema = new mongoose.Schema({
     userid: String,
     answer: String
@@ -26,11 +22,6 @@ test('can insert a user into the database', done => {
 
     function onSave(done) {
 
-      function onFound(done) {
-        console.log("here")
-        done()
-      }
-
       User.findOne({
         userid: "foo"
       }, function(err, doc) {
@@ -42,9 +33,5 @@ test('can insert a user into the database', done => {
 
     new User(user).save(onSave(done))
   }
-  mongoose.connect(uristring, {
-    server: {
-      poolSize: 1
-    }
-  }, onConnect(done))
+  s.connect(onConnect, done)
 });
