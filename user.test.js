@@ -23,8 +23,7 @@ test('can insert a user into the database', done => {
     function onSave(done) {
       var query = User.findOne({userid: "foo"})
       var promise = query.exec();
-      promise.then(function(err, doc) {
-        if (err) console.log('Error on save!')
+      promise.then(function(doc) {
         expect(doc.userid).toEqual("foo")
         done()
       })
