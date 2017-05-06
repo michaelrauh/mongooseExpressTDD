@@ -21,8 +21,6 @@ function init() {
     }]
   });
 
-  var User = mongoose.model('Users', userSchema);
-
-  return User;
+  return mongoose.model('Users', userSchema);
 }
 module.exports = init;
