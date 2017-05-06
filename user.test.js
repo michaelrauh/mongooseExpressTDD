@@ -1,26 +1,36 @@
 var mongoose = require("mongoose");
-const init = require('./user');
+const s = require('./user');
 var subject;
 
+test('can insert a user into the database', done => {
+      var uristring =
+        process.env.MONGODB_URI ||
+        'mongodb://localhost/User';
 
-beforeEach(() => {
-  subject = init()
-});
+      var userSchema = new mongoose.Schema({
+        userid: String,
+        answer: String
+      });
 
-afterEach(() => {
-  mongoose.connection.close()
-});
+      var User = mongoose.model('User', userSchema);
 
-test('initializes user model with correct schema', () => {
+      function onConnect(done) {
+        var user = {
+          userid: "foo",
+          answer: "bar"
+        }
 
-  var userSchema = new mongoose.Schema({
-    id: String,
-    data: [{
-      q: String,
-      a: String
-    }]
-  });
+        function onSave(done){
 
-  expect(subject.schema.obj).toEqual(userSchema.obj);
+          function onFound(done){
+            console.log("here")
+            done()
+          }
+          User.findOne({id: "abc123"}, onFound(done))
+        }
 
-});
+        new User(user).save(onSave(done))
+      }
+        mongoose.connect(uristring, onConnect(done))
+        mongoose.connection.close()
+      });
