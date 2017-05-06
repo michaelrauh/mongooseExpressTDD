@@ -14,12 +14,13 @@ test('can form a connection with the database', done => {
 
 test('can insert a record into the database', done => {
   subject.connect(function(){
-    var data = {userid: "foo", answer: "bar"}
+    var data = {id: "foo", value: [{q: "bar", a: "baz"}]}
     subject.insert(data, function(){
-      var query = subject.User.findOne({userid: "foo"})
+      var query = subject.User.findOne({id: "foo"})
       var promise = query.exec();
       promise.then(function(doc) {
-        expect(doc.userid).toEqual("foo")
+        expect(doc.id).toEqual("foo")
+        expect(doc.value[0]).toEqual({q: "bar", a: "baz"})
         done()
       })
     })

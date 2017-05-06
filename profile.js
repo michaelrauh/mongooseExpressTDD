@@ -21,8 +21,8 @@ function drop(callback) {
 }
 
 var userSchema = new mongoose.Schema({
-  userid: String,
-  answer: String
+  id: String,
+  value : { type : Array , "default" : [] }
 });
 
 var User = mongoose.model('User', userSchema);
