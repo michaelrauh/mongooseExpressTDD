@@ -31,7 +31,8 @@ test('can insert a user into the database', done => {
       })
     }
 
-    new User(user).save(onSave(done))
+    var savePromise = new User(user).save()
+    savePromise.then(onSave(done))
   }
   s.connect(onConnect, done)
 });
