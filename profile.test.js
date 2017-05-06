@@ -8,3 +8,12 @@ test('can form a connection with the database', done => {
     done()
   })
 });
+
+test('can insert a record into the database', done => {
+  subject.connect(function(){
+    var user = {userid: "foo", answer: "bar"}
+    var promise = new subject.User(user).save()
+    console.log("here")
+    promise.then(done)
+  })
+});

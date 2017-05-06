@@ -5,4 +5,15 @@ function connect(callback) {
     mongoose.connect(uristring, callback)
 }
 
-module.exports = {connect}
+function insert(callback) {
+  
+}
+
+var userSchema = new mongoose.Schema({
+  userid: String,
+  answer: String
+});
+
+var User = mongoose.model('User', userSchema);
+
+module.exports = {connect, insert, User}
