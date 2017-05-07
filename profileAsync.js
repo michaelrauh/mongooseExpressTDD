@@ -46,10 +46,24 @@ var userSchema = new mongoose.Schema({
   }
 });
 
+function find(identifier, callback){
+  var query = User.findOne({
+    id: identifier
+  })
+
+  var promise = query.exec();
+  promise.then(function(doc) {
+    callback(doc)
+  })
+}
+
 var User = mongoose.model('User', userSchema);
 
 module.exports = {
   connectAsync,
   insertAsync,
-  User
+  User,
+  find,
+  connect,
+  insert
 }
