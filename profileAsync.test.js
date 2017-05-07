@@ -47,13 +47,15 @@ test.only('should be able to retrieve a user by id', done => {
     }]
   }
 
-  subject.connect(function(){
-    subject.insert(data, function(){
-      subject.find("one", function(res){
-        expect(res.value[0].q).toEqual("two")
-        expect(res.value[0].a).toEqual("three")
-        done()
-      })
-    })
-  })
+  subject.connectAsync().then(
+    subject.insertAsync(data).then(
+      function() {
+        subject.findAsync("one").then(function(res) {
+          expect(res.value[0].q).toEqual("two")
+          expect(res.value[0].a).toEqual("three")
+          done()
+        })
+      }
+    )
+  )
 })

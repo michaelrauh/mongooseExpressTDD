@@ -57,6 +57,12 @@ function find(identifier, callback){
   })
 }
 
+function findAsync(identifier) {
+  return new Promise((resolve, reject) => {
+    find(identifier, resolve)
+  })
+}
+
 var User = mongoose.model('User', userSchema);
 
 module.exports = {
@@ -64,6 +70,7 @@ module.exports = {
   insertAsync,
   User,
   find,
+  findAsync,
   connect,
   insert
 }
