@@ -85,6 +85,5 @@ module.exports = {
   connect,
   insert,
   find,
-  drop,
-  User
+  drop
 }

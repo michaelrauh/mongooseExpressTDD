@@ -23,18 +23,7 @@ test('should insert a record into the database', done => {
   }
   var insert = subject.insert(data)
   insert.then(() => {
-    var query = subject.User.findOne({
-      id: "foo"
-    })
-    var promise = query.exec();
-    promise.then((doc) => {
-      expect(doc.id).toEqual("foo")
-      expect(doc.value[0]).toEqual({
-        q: "bar",
-        a: "baz"
-      })
       done()
-    })
   })
 });
 
