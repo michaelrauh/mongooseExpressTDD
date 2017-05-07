@@ -21,6 +21,12 @@ function connect(callback) {
 ;
 }
 
+function connectAsync(){
+  return new Promise((resolve, reject) => {
+    connect(resolve)
+  })
+}
+
 var userSchema = new mongoose.Schema({
   id: String,
   value: {
@@ -32,5 +38,6 @@ var userSchema = new mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 module.exports = {
-  connect
+  connect,
+  connectAsync
 }

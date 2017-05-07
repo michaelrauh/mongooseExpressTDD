@@ -5,9 +5,10 @@ afterAll(() => {
   mongoose.disconnect()
 });
 
-test.only('should form a connection with the database', done => {
-  subject.connect(function() {
+test('should form a connection with promise', done => {
+  var promise = subject.connectAsync()
+  promise.then(() => {
     expect(mongoose.connection.readyState).toBe(1)
     done()
   })
-});
+})
