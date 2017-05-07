@@ -36,6 +36,7 @@
     "express": "^4.15.2",
     "jest": "^19.0.2",
     "mongoose": "^4.9.7",
+    "sinon": "^2.2.0",
     "supertest": "^3.0.0",
     "underscore": "^1.8.3"
   },

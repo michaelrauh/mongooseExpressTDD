@@ -1,12 +1,13 @@
-var td = require('testdouble')
+var sinon = require('sinon')
 var subject;
+var profile;
+var connectStub;
 beforeEach(() => {
+  profile = require('./profile')
+  connectStub = sinon.stub(profile, 'connect')
   subject = require('./app');
 });
 
 test('loading app forms a database connection', () => {
-  var connector = td.function()
-  subject.setConnector(connector)
-  subject.connectToDatabase()
-  td.verify(connector())
+  expect(connectStub.called).toEqual(true)
 })
