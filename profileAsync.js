@@ -84,11 +84,7 @@ var User = mongoose.model('User', userSchema);
 module.exports = {
   connectAsync,
   insertAsync,
-  User,
-  find,
   findAsync,
-  connect,
-  insert,
-  drop,
-  dropAsync
+  dropAsync,
+  User
 }
