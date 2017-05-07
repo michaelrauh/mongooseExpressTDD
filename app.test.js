@@ -1,4 +1,3 @@
-var request = require('supertest');
 var td = require('testdouble')
 var subject, profile
 
@@ -8,11 +7,6 @@ beforeEach(() => {
  subject = require('./app');
 });
 
-afterEach(done => {
-  subject.close(done)
-});
-
-
-test('loading app forms a database connection', done => {
-  done()
+test('loading app forms a database connection', () => {
+  td.verify(profile.connect())
 })
