@@ -5,35 +5,35 @@ afterAll(() => {
   mongoose.disconnect()
 });
 
-test('should form a connection with the database', done => {
-  subject.connect(function() {
+test('should form a connection with promise', done => {
+  var promise = subject.connect()
+  promise.then(() => {
     expect(mongoose.connection.readyState).toBe(1)
     done()
   })
-});
+})
 
 test('should insert a record into the database', done => {
-  subject.connect(function() {
-    var data = {
-      id: "foo",
-      value: [{
+  var data = {
+    id: "foo",
+    value: [{
+      q: "bar",
+      a: "baz"
+    }]
+  }
+  var insert = subject.insert(data)
+  insert.then(function() {
+    var query = subject.User.findOne({
+      id: "foo"
+    })
+    var promise = query.exec();
+    promise.then(function(doc) {
+      expect(doc.id).toEqual("foo")
+      expect(doc.value[0]).toEqual({
         q: "bar",
         a: "baz"
-      }]
-    }
-    subject.insert(data, function() {
-      var query = subject.User.findOne({
-        id: "foo"
       })
-      var promise = query.exec();
-      promise.then(function(doc) {
-        expect(doc.id).toEqual("foo")
-        expect(doc.value[0]).toEqual({
-          q: "bar",
-          a: "baz"
-        })
-        done()
-      })
+      done()
     })
   })
 });
@@ -46,20 +46,17 @@ test('should be able to retrieve a user by id', done => {
       a: "three"
     }]
   }
-
-  subject.connect(function(){
-    subject.insert(data, function(){
-      subject.find("one", function(res){
+  subject.insert(data).then(
+    () => {
+      subject.find("one").then(function(res) {
         expect(res.value[0].q).toEqual("two")
         expect(res.value[0].a).toEqual("three")
         done()
       })
-    })
-  })
+    }
+  )
 })
 
 test('should drop the users table', done => {
-  subject.connect(function() {
-    subject.drop(done)
-  })
+  subject.drop().then(done)
 })

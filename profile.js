@@ -1,34 +1,40 @@
-var mongoose = require("mongoose");
+const Promise = require('bluebird');
+const mongoose = Promise.promisifyAll(require('mongoose'));
 
-function connect(callback) {
+mongoose.Promise = Promise
+
+function connectHelper(callback) {
   var uristring = process.env.MONGODB_URI || 'mongodb://localhost/User';
-  mongoose.connect(uristring, callback)
+  mongoose.connect(uristring)
+    .then(() => {
+      mongoose.connection.on('error', err => {
+        console.log('mongoose connection error: ' + err);
+      });
+
+      console.log('connected - attempting reconnect');
+      callback()
+    })
+    .catch(err => {
+      console.log('rejected promise: ' + err);
+      mongoose.disconnect();
+    });;
 }
 
-function insert(data, callback) {
+function connect() {
+  return new Promise((resolve, reject) => {
+    connectHelper(resolve)
+  })
+}
+
+function insertHelper(data, callback) {
   var record = new User(data)
   var promise = record.save()
   promise.then(callback)
 }
 
-function drop(callback) {
-  User.remove({}, function(err) {
-    if (err) {
-      console.log(err)
-    } else {
-      callback()
-    }
-  });
-}
-
-function find(identifier, callback){
-  var query = User.findOne({
-    id: identifier
-  })
-
-  var promise = query.exec();
-  promise.then(function(doc) {
-    callback(doc)
+function insert(data) {
+  return new Promise((resolve, reject) => {
+    insertHelper(data, resolve)
   })
 }
 
@@ -40,12 +46,45 @@ var userSchema = new mongoose.Schema({
   }
 });
 
+function findHelper(identifier, callback) {
+  var query = User.findOne({
+    id: identifier
+  })
+
+  var promise = query.exec();
+  promise.then(function(doc) {
+    callback(doc)
+  })
+}
+
+function find(identifier) {
+  return new Promise((resolve, reject) => {
+    findHelper(identifier, resolve)
+  })
+}
+
+function dropHelper(callback) {
+  User.remove({}, function(err) {
+    if (err) {
+      console.log(err)
+    } else {
+      callback()
+    }
+  });
+}
+
+function drop() {
+  return new Promise((resolve, reject) => {
+    dropHelper(resolve)
+  })
+}
+
 var User = mongoose.model('User', userSchema);
 
 module.exports = {
   connect,
   insert,
-  User,
+  find,
   drop,
-  find
+  User
 }
