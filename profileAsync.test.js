@@ -38,7 +38,7 @@ test('should insert a record into the database', done => {
   })
 });
 
-test.only('should be able to retrieve a user by id', done => {
+test('should be able to retrieve a user by id', done => {
   var data = {
     id: "one",
     value: [{
@@ -46,16 +46,13 @@ test.only('should be able to retrieve a user by id', done => {
       a: "three"
     }]
   }
-
-  subject.connectAsync().then(
-    subject.insertAsync(data).then(
-      function() {
-        subject.findAsync("one").then(function(res) {
-          expect(res.value[0].q).toEqual("two")
-          expect(res.value[0].a).toEqual("three")
-          done()
-        })
-      }
-    )
+  subject.insertAsync(data).then(
+    () => {
+      subject.findAsync("one").then(function(res) {
+        expect(res.value[0].q).toEqual("two")
+        expect(res.value[0].a).toEqual("three")
+        done()
+      })
+    }
   )
 })

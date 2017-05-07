@@ -46,7 +46,7 @@ var userSchema = new mongoose.Schema({
   }
 });
 
-function find(identifier, callback){
+function find(identifier, callback) {
   var query = User.findOne({
     id: identifier
   })
