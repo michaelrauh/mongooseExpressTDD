@@ -9,9 +9,12 @@ afterEach(done => {
   subject.close(done)
 });
 
-test('POST to / should result in a 200', done => {
+test.only('POST to / should result in a 200', done => {
   request(subject)
-    .get('/')
+  .post('/')
     .expect(200)
-    done()
+    .end(function(err, res) {
+      if (err) throw err;
+      done();
+    });
 })
