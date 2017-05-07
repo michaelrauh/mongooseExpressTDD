@@ -52,7 +52,7 @@ function findHelper(identifier, callback) {
   })
 
   var promise = query.exec();
-  promise.then(function(doc) {
+  promise.then((doc) => {
     callback(doc)
   })
 }
@@ -64,7 +64,7 @@ function find(identifier) {
 }
 
 function dropHelper(callback) {
-  User.remove({}, function(err) {
+  User.remove({}, (err) => {
     if (err) {
       console.log(err)
     } else {

@@ -22,12 +22,12 @@ test('should insert a record into the database', done => {
     }]
   }
   var insert = subject.insert(data)
-  insert.then(function() {
+  insert.then(() => {
     var query = subject.User.findOne({
       id: "foo"
     })
     var promise = query.exec();
-    promise.then(function(doc) {
+    promise.then((doc) => {
       expect(doc.id).toEqual("foo")
       expect(doc.value[0]).toEqual({
         q: "bar",
@@ -48,7 +48,7 @@ test('should be able to retrieve a user by id', done => {
   }
   subject.insert(data).then(
     () => {
-      subject.find("one").then(function(res) {
+      subject.find("one").then((res) => {
         expect(res.value[0].q).toEqual("two")
         expect(res.value[0].a).toEqual("three")
         done()

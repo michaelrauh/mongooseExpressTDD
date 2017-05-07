@@ -1,8 +1,8 @@
 var _ = require('underscore');
 
 function intersect(x, y) {
-  return x.filter(function(a) {
-    return y.some(function(b) {
+  return x.filter((a) => {
+    return y.some((b) => {
       return _.isEqual(a, b);
     });
   });
