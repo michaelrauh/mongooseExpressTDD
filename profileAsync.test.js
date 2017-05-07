@@ -56,3 +56,7 @@ test('should be able to retrieve a user by id', done => {
     }
   )
 })
+
+test('should drop the users table', done => {
+  subject.dropAsync().then(done)
+})

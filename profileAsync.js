@@ -63,6 +63,22 @@ function findAsync(identifier) {
   })
 }
 
+function drop(callback) {
+  User.remove({}, function(err) {
+    if (err) {
+      console.log(err)
+    } else {
+      callback()
+    }
+  });
+}
+
+function dropAsync() {
+  return new Promise((resolve, reject) => {
+    drop(resolve)
+  })
+}
+
 var User = mongoose.model('User', userSchema);
 
 module.exports = {
@@ -72,5 +88,7 @@ module.exports = {
   find,
   findAsync,
   connect,
-  insert
+  insert,
+  drop,
+  dropAsync
 }
