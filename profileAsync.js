@@ -27,6 +27,18 @@ function connectAsync(){
   })
 }
 
+function insert(data, callback) {
+  var record = new User(data)
+  var promise = record.save()
+  promise.then(callback)
+}
+
+function insertAsync(data){
+  return new Promise((resolve, reject) => {
+    insert(data, resolve)
+  })
+}
+
 var userSchema = new mongoose.Schema({
   id: String,
   value: {
@@ -39,5 +51,8 @@ var User = mongoose.model('User', userSchema);
 
 module.exports = {
   connect,
-  connectAsync
+  connectAsync,
+  insert,
+  insertAsync,
+  User
 }
