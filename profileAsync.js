@@ -7,21 +7,20 @@ function connect(callback) {
   var uristring = process.env.MONGODB_URI || 'mongodb://localhost/User';
   mongoose.connect(uristring)
     .then(() => {
-        mongoose.connection.on('error', err => {
-            console.log('mongoose connection error: '+err);
-        });
+      mongoose.connection.on('error', err => {
+        console.log('mongoose connection error: ' + err);
+      });
 
-        console.log('connected - attempting reconnect');
-        callback()
+      console.log('connected - attempting reconnect');
+      callback()
     })
     .catch(err => {
-        console.log('rejected promise: '+err);
-        mongoose.disconnect();
-    });
-;
+      console.log('rejected promise: ' + err);
+      mongoose.disconnect();
+    });;
 }
 
-function connectAsync(){
+function connectAsync() {
   return new Promise((resolve, reject) => {
     connect(resolve)
   })
@@ -33,7 +32,7 @@ function insert(data, callback) {
   promise.then(callback)
 }
 
-function insertAsync(data){
+function insertAsync(data) {
   return new Promise((resolve, reject) => {
     insert(data, resolve)
   })
@@ -50,9 +49,7 @@ var userSchema = new mongoose.Schema({
 var User = mongoose.model('User', userSchema);
 
 module.exports = {
-  connect,
   connectAsync,
-  insert,
   insertAsync,
   User
 }

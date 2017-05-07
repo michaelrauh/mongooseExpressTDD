@@ -21,7 +21,8 @@ test('should insert a record into the database', done => {
       a: "baz"
     }]
   }
-  subject.insertAsync(data).then(function() {
+  var insert = subject.insertAsync(data)
+  insert.then(function() {
     var query = subject.User.findOne({
       id: "foo"
     })
