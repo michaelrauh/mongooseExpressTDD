@@ -32,8 +32,11 @@
   ],
   "homepage": "http://hello-mongoose.herokuapp.com",
   "devDependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
     "jest": "^19.0.2",
     "mongoose": "^4.9.7",
+    "supertest": "^3.0.0",
     "underscore": "^1.8.3"
   },
   "scripts": {
