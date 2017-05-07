@@ -1,5 +1,11 @@
 var profile = require('./profile')
+var connector = profile.connect;
+function setConnector(input){
+  connector = input;
+}
 
-var connection = profile.connect()
-console.log(profile)
-console.log(connection)
+function connectToDatabase(){
+  var connection = connector()
+}
+
+module.exports = {setConnector, connectToDatabase, connector};

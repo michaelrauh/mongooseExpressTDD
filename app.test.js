@@ -1,12 +1,12 @@
 var td = require('testdouble')
-var subject, profile
-
+var subject;
 beforeEach(() => {
- profile = td.replace('./profile')
- console.log(profile)
- subject = require('./app');
+  subject = require('./app');
 });
 
 test('loading app forms a database connection', () => {
-  td.verify(profile.connect())
+  var connector = td.function()
+  subject.setConnector(connector)
+  subject.connectToDatabase()
+  td.verify(connector())
 })
