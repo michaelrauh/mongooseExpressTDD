@@ -11,8 +11,8 @@ app.post('/', jsonParser, function(req, res) {
   profile.insert(req.body).then(res.sendStatus(200))
 });
 
-app.get('/:id', function(req, res){
-  profile.find(req.params.id).then(function(data){
+app.get('/:id', function(req, res) {
+  profile.find(req.params.id).then(function(data) {
     res.send(data)
   })
 });

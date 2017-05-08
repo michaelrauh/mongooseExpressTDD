@@ -4,25 +4,11 @@ var profile;
 var connectStub;
 var insertStub;
 var subject;
-var data;
-
-var emptyPromise = new Promise((resolve, reject) => {
-  resolve()
-})
 
 beforeAll(() => {
-  data = {
-    id: "foo",
-    value: [{
-      q: "bar",
-      a: "baz"
-    }]
-  }
   profile = require('./profile')
   connectStub = sinon.stub(profile, 'connect')
-  var deferred = Promise.defer();
-  stub = sinon.stub(deferred, 'resolve').returns(deferred.promise);
-  insertStub = sinon.stub(profile, 'insert').callsFake(stub)
+  insertStub = sinon.stub(profile, 'insert').resolves()
   findStub = sinon.stub(profile, 'find').withArgs('foo').resolves("hello");
   subject = require('./app');
 });
@@ -36,6 +22,14 @@ test('loading app forms a database connection', () => {
 })
 
 test('POST / returns in a 200', done => {
+  var data = {
+    id: "foo",
+    value: [{
+      q: "bar",
+      a: "baz"
+    }]
+  }
+
   request(subject)
     .post('/')
     .send(data)
@@ -49,10 +43,10 @@ test('POST / returns in a 200', done => {
 
 test('GET /id returns the record at that id', done => {
   request(subject)
-      .get('/foo')
-      .end(function(err, res) {
-        if (err) throw err;
-        expect(res.text).toEqual("hello")
-        done();
-      });
+    .get('/foo')
+    .end(function(err, res) {
+      if (err) throw err;
+      expect(res.text).toEqual("hello")
+      done();
+    });
 })
