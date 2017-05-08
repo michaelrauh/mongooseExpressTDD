@@ -1,46 +1,31 @@
 {
-  "name": "hello-mongoose",
-  "version": "0.3.0",
-  "description": "MongoDB with Mongoose on Node.js example",
+  "name": "newhobbies",
+  "version": "0.0.1",
+  "description": "An app to find new compatibilities with others",
   "main": "app.js",
-  "engines": {
-    "node": ">=4.1.1",
-    "npm": ">=2.1.x"
-  },
-  "repository": "https://github.com/mongolab/hello-mongoose.git",
-  "authors": [
-    "Ben Wen",
-    "Chris Chang"
-  ],
-  "license": "MIT",
   "dependencies": {
-    "mongoose": ">=4.1.11"
-  },
-  "changelog": [
-    {
-      "0.0.0": "Initial release"
-    },
-    {
-      "0.1.0": "Update to Mongoose 3.5.7; new MongoClient semantics"
-    },
-    {
-      "0.2.0": "Update to Mongoose 3.8.15; updated Node engine to 0.10.31; updated npm engine to >=1.4"
-    },
-    {
-      "0.3.0": "Update to Mongoose >=4.1.11; updated Node engine to >=4.1.1; updated npm engine to >=2.1.x"
-    }
-  ],
-  "homepage": "http://hello-mongoose.herokuapp.com",
-  "devDependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "jest": "^19.0.2",
     "mongoose": "^4.9.7",
-    "sinon": "^2.2.0",
-    "supertest": "^3.0.0",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "bluebird": "^3.5.0",
+    "jest": "^19.0.2",
+    "sinon": "^2.2.0",
+    "supertest": "^3.0.0"
   },
   "scripts": {
     "test": "jest"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelrauh/newHobbiesServer.git"
+  },
+  "author": "lifayt, michaelrauh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michaelrauh/newHobbiesServer/issues"
+  },
+  "homepage": "https://github.com/michaelrauh/newHobbiesServer#readme"
 }
