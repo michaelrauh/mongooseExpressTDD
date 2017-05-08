@@ -7,21 +7,11 @@ var profile = require('./profile')
 
 profile.connect()
 
-app.post('/', function (req, res) {
-  var data = {
-    id: "foo",
-    value: [{
-      q: "bar",
-      a: "baz"
-    }]
-  }
-
-profile.insert(data).then(res.sendStatus(200))
-
-
+app.post('/', jsonParser, function(req, res) {
+  profile.insert(req.body).then(res.sendStatus(200))
 });
 
-var server = app.listen(port, function () {
+var server = app.listen(port, function() {
   console.log('app listening at port %s', port);
 });
 

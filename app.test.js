@@ -36,8 +36,8 @@ test('POST to / should result in a 200', done => {
   }
 
   request(subject)
-  .post('/')
-  .send(data)
+    .post('/')
+    .send(data)
     .expect(200)
     .end(function(err, res) {
       if (err) throw err;
