@@ -8,7 +8,17 @@ var profile = require('./profile')
 profile.connect()
 
 app.post('/', function (req, res) {
-  res.sendStatus(200)
+  var data = {
+    id: "foo",
+    value: [{
+      q: "bar",
+      a: "baz"
+    }]
+  }
+
+profile.insert(data).then(res.sendStatus(200))
+
+
 });
 
 var server = app.listen(port, function () {
