@@ -6,10 +6,37 @@ var insertStub;
 var subject;
 
 beforeAll(() => {
+
+  var first = {
+    id: "pineapple",
+    value: [{
+        q: "bar",
+        a: "baz"
+      },
+      {
+        q: "bing",
+        a: "bang"
+      }
+    ]
+  }
+
+  var second = {
+    id: "bar",
+    value: [{
+      q: "bar",
+      a: "baz"
+    }, {
+      q: "boo",
+      a: "bong"
+    }]
+  }
   profile = require('./profile')
   connectStub = sinon.stub(profile, 'connect')
   insertStub = sinon.stub(profile, 'insert').resolves()
-  findStub = sinon.stub(profile, 'find').withArgs('foo').resolves("hello");
+  findStub = sinon.stub(profile, 'find')
+  findStub.withArgs('foo').resolves("hello");
+  findStub.withArgs('pineapple').resolves(first);
+  findStub.withArgs('bar').resolves(second);
   subject = require('./app');
 });
 
@@ -47,6 +74,21 @@ test('GET /id returns the record at that id', done => {
     .end(function(err, res) {
       if (err) throw err;
       expect(res.text).toEqual("hello")
+      done();
+    });
+})
+
+test('GET /id1/id2 compares the two ids and returns the intersection', done => {
+  var expected = [{
+    q: "bar",
+    a: "baz"
+  }]
+
+  request(subject)
+    .get('/pineapple/bar')
+    .end(function(err, res) {
+      if (err) throw err;
+      expect(res.text).toEqual("[{\"q\":\"bar\",\"a\":\"baz\"}]")
       done();
     });
 })
