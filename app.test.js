@@ -79,11 +79,6 @@ test('GET /id returns the record at that id', done => {
 })
 
 test('GET /id1/id2 compares the two ids and returns the intersection', done => {
-  var expected = [{
-    q: "bar",
-    a: "baz"
-  }]
-
   request(subject)
     .get('/pineapple/bar')
     .end(function(err, res) {
