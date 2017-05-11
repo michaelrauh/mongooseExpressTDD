@@ -8,6 +8,12 @@ var intersector = require('./intersector')
 
 profile.connect()
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.post('/', jsonParser, function(req, res) {
   profile.insert(req.body).then(res.sendStatus(200))
 });
